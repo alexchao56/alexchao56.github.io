@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>CS 61B: Final Exam</title>
+</head>
+<body bgcolor='ffffff'>
+
+<font size=6 color='009000'>
+<a href="http://www.cs.berkeley.edu/~jrs/61b/">
+CS 61B:  Data Structures</a></font>
+<font color='009000'>(Autumn 2006)</font><br>
+<font size="6" color="#009000">Final Exam</font><br>
+<h3><font size=5 color='red'>UNOFFICIAL</font> Solutions</h3><br>
+
+<b>Problem 1.</b>  (9 points) <b>A Miscellany.</b><br><br>
+
+<b>Problem 2.</b>  (10 points) <b>Sorting.</b><br>
+<b>a. b. c. </b>
+See <a href="http://www.cs.berkeley.edu/~jrs/61b/exam/06final.html">the official solution</a>.
+<br><br>
+
+<b>d. </b>
+Not sure why, but I think <tt>sortMe</tt> will not be sorted. 
+<br><br>
+
+<b>Problem 3.</b>  (9 points) <b>Trees.</b><br>
+
+<b>a. </b>
+<pre>
+    4
+   / \ 
+  2   6
+ /   / \
+1   5   9
+       /  \
+      8   10</pre>
+<br>
+
+<b>b. </b>
+At least 10 keys should be inserted. If we want to break two 3-key nodes, we must encounter them as parent-children. Assuming the parent 3-key node has three other 1-key children, the minimum number of insertions, counting the last insertion that breaks the two nodes, would be: 3 + 3 + 3*1 + 1 = 10. <br><br>
+
+Through trial-and-error, I found a sequence of 11 insertions that satisfy the requirements, namely <i>3 4 5 6 7 8 9 1 2 0 10</i>, in that order. <b>In other words, either my derivation above is wrong (should be at least 11 instead of 10), or there exists another example with 10 insertions only. Any input is greatly appreciated.</b><br><br>
+
+In the meantime, here's a few steps during those 11 insertions.
+
+<pre>
+  3 4 5        4            4 6            4 6           2 4 6
+          7   / \     9    / | \     2    / | \     0   / | | \
+         ->  3  567  ->   3  5 789  ->  123 5 789  ->  01 3 5 789</pre>
+<br>
+Inserting 10 would then break the node <i>246</i> and <i>789</i>
+<br><br>
+
+<b>c. </b>
+<pre>
+if (no children): return the key since this is a leaf node
+else: we keep track of a counter <i>depth</i>, which is set to 0 initially at the root.
+  if (depth is even):
+    return minimax(this.right, depth+1) 
+  else:
+    return minimax(this.left, depth+1)</pre>
+<br>
+
+<b>d. </b>
+<pre>
+       A
+      / \
+     B   C
+    / \   \
+   /   \   F
+  D     E   \
+ / \   /     J
+G   H I
+     / \
+    K   L
+
+Preorder: A B D G H E I K L C F J
+Postorder: G H D K L I E B J F C A  </pre>
+<br>
+
+<b>Problem 4.</b>  (9 points) <b>Data Structures.</b><br>
+
+<b>a. </b>
+<pre>
+a <- c <- e <- f
+  ^
+   \
+     g <- b
+       ^
+        \
+          d</pre>
+Visited order, starting from <i>a</i>, is: <i>a c g e b d f</i>.
+<br><br>
+
+<b>b. </b>
+For each vertex <tt>u</tt>, we need to find an edge incident on it by checking every other vertex <tt>w</tt> such that <tt>(u, w)</tt> (if <tt>u</tt> <= <tt>w</tt>), or <tt>(w, u)</tt> is in the hash table, and that we haven't visited <tt>w</tt> previously. Doing so, in the worst case, would take <tt>O(|V|<sup>2</sup></tt>), which is much worse than the normal <tt>O(|V|+|E|)</tt> for DFS.  
+<br><br>
+
+<b>c. </b>
+Let's say you have <tt>N</tt> buckets, and <tt>n = N-1</tt> items. The load factor is currently approaching 1. If you add two more items, you resize up. If you then remove two items, you resize down. Hence, a sequence of two <tt>add()</tt>s/<tt>remove()</tt>s would cause you to resize every now and then, and go bankrupt. Hence, the amortized running time of the two operations is not <tt>O(1)</tt>.  
+<br><br>
+
+<b>d. </b>
+I believe this is similar to the derivation of randomized quicksort's running time in Lecture 38. We have a 1/2 chance of finding a good index, which we can then drop 1/4 of the items in the sorted array. Let <i>D</i>(<i>n</i>) be a random variable equal to the depth of an arbitrary key in a random <i>n</i>-index, <i>retarded binary search</i>. By the same derivation in Lecture 38,
+<blockquote>
+E[<i>D</i>(<i>n</i>)] &le; 2 log<sub>4/3</sub> <i>n</i>.
+</blockquote> 
+<br>
+
+<b>Problem 5.</b>  (6 points) <b>Dynamic Median Finding.</b><br>
+
+<b>a. </b>
+When the number of elements is odd, return<br>
+<ul>
+  <li>min key of min heap if size(min heap) > size(max heap)</li>
+  <li>max key of max heap if size(min heap) < size(max heap)</li>
+</ul>
+If the number of elements is even, return the max key of max heap, since every key of max heap is less than or equal to every key of min heap.
+<br><br>
+
+<b>b. </b>
+<ul>
+  <li>If the inserted key is bigger than or equal to the root of the min heap, insert it into the min heap.</li>
+  <li>Else if the inserted key is smaller than or equal to the root of the max heap, insert it into the max heap.</li>
+  <li>Otherwise (<tt>max(maxHeap) < key < min(minHeap)</tt>), choose either heap arbitrarily and insert it into that heap.</li>
+</ul>
+<br>
+
+<b>c. </b>
+<ul>
+  <li>If the inserted key is bigger than or equal to the root of the max heap, insert it into the min heap (max heap doesn't need it).</li>
+  <li>Else (this new key absolutely needs to go into the max heap):
+    <ul>
+      <li>Pop the max of the max heap via <tt>removeMax()</tt>.</li>
+      <li>Insert that popped key to the min heap - it will serve as the new root (minimum key) of the min heap.</li>
+      <li>Insert the new key into the max heap.</li>
+    </ul>
+  </li>
+</ul>
+<br>
+
+<b>Problem 6.</b>  (7 points) <b>Binary Search Tree Insertion with Size and Height Fields.</b><br>
+
+<pre><tt>
+public class BinaryTreeNode {
+  int key, size, height;
+  BinaryTreeNode parent, left, right;
+
+  // Constructor with key k, parent p.
+  public BinaryTreeNode(int k, BinaryTreeNode p) {
+    key = k; parent = p;
+    size = 1; height = 0; left = null; right = null; 
+  }
+
+  // Inserts key k into "this" node's subtree; updates all sizes and heights.
+  <b>public void insert(int k) {
+    if (k < key) {
+      if (left != null) {
+        left.insert(k);
+      } else {
+        left = new BinaryTreeNode(k, this);
+      }
+    } else {
+      if (right != null) {
+        right.insert(k);
+      } else {
+        right = new BinaryTreeNode(k, this);
+      }
+    }
+    height = max(height(left), height(right)) + 1; 
+    size++;
+  }
+
+  // Compute the node's height, null is treated as -1
+  public int height(BinaryTreeNode node) {
+    if (node == null) {
+      return -1;
+    } else {
+      return node.height;
+    }
+  }
+
+  // Return the max between two numbers
+  public int max(int a, int b) {
+    return a >= b ? a:b;
+  }</b>
+}
+</tt></pre>
+
+<hr>
+</body>
+</html>

@@ -1,0 +1,1141 @@
+
+<!DOCTYPE html>
+<html class='csstransitions csstransforms' lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=Edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <title>CS 61B</title>
+    <!--[if lt IE 9]>
+      <script src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js'></script>
+    <![endif]-->
+    <script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/deck.core.js" type="text/javascript"></script>
+    <script src="assets/js/deck.status.js" type="text/javascript"></script>
+    <link href="assets/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/css/deck/deck.core.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/css/deck/themes/transition/horizontal-slide.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/css/deck/extensions/scale/deck.scale.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/css/deck/extensions/status/deck.status.css" media="screen" rel="stylesheet" type="text/css" />
+    <script>
+        $(function() {
+          $.deck('.slide');
+        });
+    </script>
+  </head>
+  <body>
+    <div class='deck-container'>
+      <section class='slide' id='title-slide'>
+  <div class='vcenter'>
+    <h1>Vim/Screen tutorial</h1>
+    <h4>Dan Wang and Aki Matsukawa</h4>
+  </div>
+</section>
+<section class='slide' id='setting-up'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Setting up</h2>
+      First, connect to one of UNIX servers:
+      <pre class='code'>$ ssh [LOGIN]@[HOST]</pre>
+      Some of the newer OSX workstations are:
+      <ol>
+        <li>
+          <code>akane.cs.berkeley.edu</code>
+        </li>
+        <li>
+          <code>delicious.cs.berkeley.edu</code>
+        </li>
+        <li>
+          <code>fiesta.cs.berkeley.edu</code>
+        </li>
+        <li>
+          <code>liberty.cs.berkeley.edu</code>
+        </li>
+        <li>
+          <code>mcintosh.cs.berkeley.edu</code>
+        </li>
+        <li>
+          <code>york.cs.berkeley.edu</code>
+        </li>
+      </ol>
+      Copy configuration files over:
+      <pre class='code'>$ find ~cs61b-td/vim-screen -maxdepth 1 -type f | xargs -I {} cp {} ~</pre>
+      Copy the tutorial files:
+      <pre class='code'>$ cp -r ~cs61b-td/vim-screen-tutorial/tutorial ~</pre>
+    </div>
+  </div>
+</section>
+<section class='slide' id='running-screen'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Running Screen</h2>
+      To start using screen, run
+      <pre class='code'>$ screen</pre>
+      In this tutorial, the command key has been changed from the default
+      <code>C-a</code>
+      to
+      <code>C-j</code>
+      <h2></h2>
+      Screen Basics
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Exit a window
+            </td>
+            <td>
+              <code>$ exit</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Create a new window
+            </td>
+            <td>
+              <code>C-j c</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Force exit a window
+            </td>
+            <td>
+              <code>C-j k</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Move to the next window (right)
+            </td>
+            <td>
+              <code>C-j [space]</code>
+              or
+              <code>C-j n</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Move to the previous window (left)
+            </td>
+            <td>
+              <code>C-j [backspace]</code>
+              or
+              <code>C-j p</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Jump to window
+              <code>n %td</code>
+              <code>C-j [n]</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class='slide' id='screen-detaching'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Screen Detaching</h2>
+      A screen can be detached and reattached later.
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Detach a screen (while inside a screen)
+            </td>
+            <td>
+              <code>C-j d</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              View all screens
+            </td>
+            <td>
+              <code>$ screen -ls</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Reattach to a detached screen
+            </td>
+            <td>
+              <code>$ screen -r [screen-name]</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Reattach to an already attached screen
+            </td>
+            <td>
+              <code>$ screen -x [screen-name]</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <code>screen-name</code>
+      can be any unique prefix of the screen name. For example, if you have the
+      following detached screens:
+      <ul>
+        <li>
+          <code>7270.pts-0.chubtub</code>
+        </li>
+        <li>
+          <code>25791.pts-8.chubtub</code>
+        </li>
+        <li>
+          <code>25841.pts-6.chubtub</code>
+        </li>
+      </ul>
+      You can run
+      <code>$ screen -r 7</code>
+      to reattach to the first screen, but you need to run
+      <code>$ screen -r 258</code>
+      to reattach to the third screen.
+    </div>
+  </div>
+</section>
+<section class='slide' id='screen-commands'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Screen commands</h2>
+      Screen commans can be entered by pressing
+      <code>C-j</code>
+      and then typing
+      <code>:</code>
+      , followed by the command
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Change the number of the current window to
+              <code>n</code>
+            </td>
+            <td>
+              <code>number [n]</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Change the name of the window to
+              <code>name</code>
+            </td>
+            <td>
+              <code>title [name]</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-1'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Saving and Exiting</h2>
+      In vim, issue a command by typing a colon (
+      <code>:</code>
+      ) followed by the command and hitting return.
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Exit
+            </td>
+            <td>
+              <code>:q</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Exit, discarding any changes since the last save
+            </td>
+            <td>
+              <code>:q!</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Save (write the file to disk)
+            </td>
+            <td>
+              <code>:w</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Save and exit
+            </td>
+            <td>
+              <code>:wq</code>
+              or
+              <code>:x</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-2'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Normal Mode and Insert Mode</h2>
+      In Vim, there are two modes that you will often use:
+      <ul>
+        <li>
+          <strong>Normal mode:</strong>
+          This is the the mode that Vim starts in. This mode is for
+          <em>editing,</em>
+          so most of the letter keys are commands. Typing here will cause
+          strange things to happen!
+        </li>
+        <li>
+          <strong>Insert mode:</strong>
+          In this mode, each key inserts its corresponding character(s). This
+          makes Vim behave like most other editors.
+        </li>
+      </ul>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Enter Insert mode (from Normal mode)
+            </td>
+            <td>
+              <code>i</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Enter Normal mode (from Insert mode)
+            </td>
+            <td>
+              <code>ESC</code>
+              or
+              <code>C-[</code>
+              or
+              <code>C-c</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Note:</strong>
+        In most terminals,
+        <code>C-[</code>
+        is the same sequence as
+        <code>ESC</code>
+        . To mimimize unnecessary hand movement, consider switching the
+        functionality of
+        <code>Caps Lock</code>
+        and
+        <code>Control</code>
+        .
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-3'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Basic Movement</h2>
+      One of the features of Vim is its amazing expressiveness in movement
+      with very little hand movement. Arrow keys are far away from the home
+      row, so the following commands are used for basic one-character
+      movement:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Down
+            </td>
+            <td>
+              <code>j</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Up
+            </td>
+            <td>
+              <code>k</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Left
+            </td>
+            <td>
+              <code>h</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Right
+            </td>
+            <td>
+              <code>l</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      In Normal mode, most commands can be prefixed by a number to repeat
+      it. For example,
+      <code>20j</code>
+      would move the cursor down 20 times (equivalent to pressing the
+      <code>j</code>
+      key 20 times).
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>basic-movement.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-4'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Horizontal Movement (1/2)</h2>
+      Within a line, there are many ways to move around without using
+      <code>h</code>
+      and
+      <code>l</code>
+      :
+      <h4>Absolute movement</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              to the first character of the line
+            </td>
+            <td>
+              <code>0</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the last character of the line
+            </td>
+            <td>
+              <code>$</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the first non-blank character of the line
+            </td>
+            <td>
+              <code>^</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Relative movement</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              to the next occurrence of
+              <code>char</code>
+              on the line
+            </td>
+            <td>
+              <code>f {char}</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the previous occurrence of
+              <code>char</code>
+              on the line
+            </td>
+            <td>
+              <code>F {char}</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              before the next occurence of
+              <code>char</code>
+              on the line
+            </td>
+            <td>
+              <code>t {char}</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              after the previous occurence of
+              <code>char</code>
+              on the line
+            </td>
+            <td>
+              <code>T {char}</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Protip:</strong>
+        You can remember
+        <code>f</code>
+        by "find" and
+        <code>t</code>
+        by "towards."
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-5'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Horizontal Movement (2/2)</h2>
+      Vim also supports movement by words:
+      <h4>Word movement</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              to the beginning of the next word
+            </td>
+            <td>
+              <code>w</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the end of the next or current word
+            </td>
+            <td>
+              <code>e</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the beginning of the previous word
+            </td>
+            <td>
+              <code>b</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>horiz-movement.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-6'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Vertical Movement</h2>
+      Vim also supports movement by words:
+      <h4>Absolute Movement</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              to the first line of the file
+            </td>
+            <td>
+              <code>gg</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to the last line of the file
+            </td>
+            <td>
+              <code>G</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              to line
+              <code>n</code>
+            </td>
+            <td>
+              <code>:{n}</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Relative Movement</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              down half a screen
+            </td>
+            <td>
+              <code>C-d</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              up half a screen
+            </td>
+            <td>
+              <code>C-u</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              down a full screen
+            </td>
+            <td>
+              <code>C-f</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              up a full screen
+            </td>
+            <td>
+              <code>C-b</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-6'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Basic Editing</h2>
+      Undoing and redoing is easy in Vim:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              undo
+            </td>
+            <td>
+              <code>u</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              redo
+            </td>
+            <td>
+              <code>C-r</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      We've already seen that
+      <code>x</code>
+      deletes the character the cursor is over. There are a few other basic
+      Vim editing commands:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              delete the current character
+            </td>
+            <td>
+              <code>x</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              replace the current character with
+              <code>char</code>
+            </td>
+            <td>
+              <code>r{char}</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              flip the case of the current character and move to the right
+            </td>
+            <td>
+              <code>~</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              join the current line with the next
+            </td>
+            <td>
+              <code>J</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>basic-editing.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-7'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Selection Editing (1/2)</h2>
+      Other Vim commands combine an
+      <em>action</em>
+      with a
+      <em>selection</em>
+      .
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              delete the selection
+            </td>
+            <td>
+              <code>d</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              delete the selection, and enter Insert mode (change)
+            </td>
+            <td>
+              <code>c</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        If an action is repeated twice, the entire current line is selected.
+        So
+        <code>dd</code>
+        deletes the current line.
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-8'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Selection Editing (2/2)</h2>
+      <h4>Selections</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              selects a word and trailing whitespace
+            </td>
+            <td>
+              <code>aw</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              selects a word
+            </td>
+            <td>
+              <code>iw</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              selects a
+              <code>[]</code>
+              ,
+              <code>()</code>
+              ,
+              <code>{}</code>
+              ,
+              <code>" "</code>
+              ,
+              <code>' '</code>
+              , or
+              <code>< ></code>
+              block, including the delimiters
+            </td>
+            <td>
+              <code>a[</code>
+              ,
+              <code>a(</code>
+              ,
+              <code>a{</code>
+              ,
+              <code>a"</code>
+              ,
+              <code>a'</code>
+              ,
+              <code>a<</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              selects a
+              <code>[]</code>
+              ,
+              <code>()</code>
+              ,
+              <code>{}</code>
+              ,
+              <code>" "</code>
+              ,
+              <code>' '</code>
+              , or
+              <code>< ></code>
+              block, not including the delimiters
+            </td>
+            <td>
+              <code>i[</code>
+              ,
+              <code>i(</code>
+              ,
+              <code>i{</code>
+              ,
+              <code>i"</code>
+              ,
+              <code>i'</code>
+              ,
+              <code>i<</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              selects all text between the cursor location and the location
+              of the cursor if it performs that movement
+            </td>
+            <td>
+              any movement command
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>select-editing.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-8'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Entering Insert Mode</h2>
+      Often times it is necessary to enter Insert mode at a different
+      location than your cursor is at. There are a few commands that combine
+      movement with entering Insert mode:
+      <h4>Entering Insert mode</h4>
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              at the current cursor
+            </td>
+            <td>
+              <code>i</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              one character after the current cursor
+            </td>
+            <td>
+              <code>a</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              before the first non-blank character in the line
+            </td>
+            <td>
+              <code>I</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              at the end of the line
+            </td>
+            <td>
+              <code>A</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              on a new line above the cursor
+            </td>
+            <td>
+              <code>O</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              on a new line below the cursor
+            </td>
+            <td>
+              <code>o</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>insert-mode.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-9'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Copying and pasting</h2>
+      In vim, we can
+      <em>yank</em>
+      (or copy) text and
+      <em>pull</em>
+      (or paste) it back to the file:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              yank a selection
+            </td>
+            <td>
+              <code>y</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              pull the last yank or deletion after the cursor
+            </td>
+            <td>
+              <code>p</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              pull the last yank or deletion before the cursor
+            </td>
+            <td>
+              <code>P</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      Vim stores text in
+      <em>registers</em>
+      . Registers have names, which are one character long. There are a few
+      built-in registers:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              last yank
+            </td>
+            <td>
+              <code>0</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              defaut register (contains last yank or deletion)
+            </td>
+            <td>
+              <code>"</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              system clipboard
+            </td>
+            <td>
+              <code>+</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>
+          To yank or pull to a specific buffer, prefix the command with
+          <code>"{buffer name}</code>
+          .
+        </li>
+        <li>
+          To view registers and their contents, use
+          <pre class='code'>:reg</pre>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-10'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Visual Mode</h2>
+      In addition to the Normal and Insert modes, Vim has a Visual mode to
+      manually select regions of text. To enter visual mode, use
+      <code>v</code>
+      . Most movement commands can be used here to adjust the region. If a
+      command that would normally require a selection is used, it will be
+      applied to the selected region.
+      There are different types of visual mode:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              normal Visual mode
+            </td>
+            <td>
+              <code>v</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Visual block mode (select rectangles of text)
+            </td>
+            <td>
+              <code>C-v</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Visual line mode (select only full lines)
+            </td>
+            <td>
+              <code>V</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Protip:</strong>
+        In visual block mode,
+        <code>I</code>
+        will insert text on the beginning of each line.
+      </div>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>visual-mode.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-11'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Search and Replace (1/2)</h2>
+      <h4>Searching</h4>
+      <ul>
+        <li>
+          To search for text in a file, type
+          <code>/</code>
+          followed by the search expression and hit return.
+        </li>
+        <li>
+          To jump to the next instance of the search query, use
+          <code>n</code>
+        </li>
+        <li>
+          To jump to the previous instance of the search query, use
+          <code>N</code>
+        </li>
+        <li>
+          To search backwards, use
+          <code>?</code>
+          instead of
+          <code>/</code>
+        </li>
+      </ul>
+      To turn on case-insensitve search, use
+      <pre class='code'>:set ignorecase</pre>
+      To turn it off, use
+      <pre class='code'>:set noignorecase</pre>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-12'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Search and Replace (2/2)</h2>
+      <h4>Replacing</h4>
+      To replace text, first select a region and type
+      <code>:s/{search_query}/{replace_with}</code>
+      This will replace the first instance of
+      <code>search_query</code>
+      with
+      <code>replace_with</code>
+      on each line that is selected.
+      There are a few options for replacing:
+      <table class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td>
+              Perform a case-insensitive search
+            </td>
+            <td>
+              <code>:s/.../.../i</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Replace all matches on every line
+            </td>
+            <td>
+              <code>:s/.../.../g</code>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Search and replace the entire file (no selection needed)
+            </td>
+            <td>
+              <code>:%s/.../...</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='well'>
+        <strong>Protip:</strong>
+        The
+        <code>/</code>
+        can be any character. It is sometimes useful to use a different
+        character. For example,
+        <pre class='code'>:s/\/home\/danwang/\/home\/cs61b-td/g</pre>
+        is a lot less readable than
+        <pre class='code'>:s#/home/danwang#/home/cs61b-td#g</pre>
+      </div>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>search-replace.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='slide' id='vim-13'>
+  <div class='row'>
+    <div class='span10'>
+      <h2>Vim: Macros</h2>
+      Macros are really, really cool. Vim macros are strings of keypresses
+      stored in registers that can be executed. To record a macro, use
+      <pre class='code'>q{register name}</pre>
+      This will store your keypresses in register
+      <code>register name</code>
+      . (You can verify this by pasting from the register.)
+      To execute the contents of a register, use
+      <pre class='code'>@{register name}</pre>
+      <div class='well'>
+        <strong>Exercise:</strong>
+        <code>macros.txt</code>
+      </div>
+    </div>
+  </div>
+</section>
+<p class='deck-status'>
+  <span class='deck-status-current'></span>
+  /
+  <span class='deck-status-total'></span>
+</p>
+    </div>
+  </body>
+</html>
