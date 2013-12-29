@@ -1,4 +1,4 @@
-kqdtran.github.com
+alexchao56.github.io
 ==================
 
-My website on [Github page](http://kqdtran.github.io/). 
+My personal website hosted on a [Github page](http://alexchao56.github.io/). 
